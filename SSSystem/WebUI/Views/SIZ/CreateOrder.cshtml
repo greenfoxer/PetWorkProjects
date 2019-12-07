@@ -1,0 +1,182 @@
+﻿@using Domain.Entities
+@model t_siz_orders
+@Scripts.Render("~/Scripts/jquery.unobtrusive-ajax.js")
+<div>
+    @using (Html.BeginForm("CreateOrder", "SIZ", System.Web.Mvc.FormMethod.Post, new { id = "newform" }))
+    {
+        @Html.AntiForgeryToken()
+    <input type="hidden" value="@ViewBag.Ident" name="matrix" />
+    <div>
+        @Html.LabelFor(model => model.goods)
+        <p>@Html.DropDownListFor(model => model.goods, ViewBag.Goods as SelectList, "-- Выберите СИЗ --", new { @class = "form-control g-list", id = "goodlist", style = "height:75px" })</p>
+    </div>
+    <div>
+        @Html.LabelFor(model => model.size)
+        <p>@Html.DropDownListFor(model => model.size, ViewBag.Sizes as SelectList, "-- Выберите размер --", new { @class = "form-control s-list", id = "sizelist" })</p>
+    </div>
+    <table>
+
+        <tr>
+            @if (ViewBag.Quarters[0] == 1)
+            { 
+            <td>
+                @Html.LabelFor(model => model.num1)
+                <p>@Html.TextBoxFor(model => model.num1, new { @class = "form-control" })</p>
+            </td>
+            }
+            @if (ViewBag.Quarters[1] == 1)
+            {
+            <td>
+                @Html.LabelFor(model => model.num2)
+                <p>@Html.TextBoxFor(model => model.num2, new { @class = "form-control" })</p>
+            </td>
+            }
+@if (ViewBag.Quarters[2] == 1)
+{
+            <td>
+                @Html.LabelFor(model => model.num3)
+                <p>@Html.TextBoxFor(model => model.num3, new { @class = "form-control" })</p>
+            </td>
+}
+@if (ViewBag.Quarters[3] == 1)
+{
+            <td>
+                @Html.LabelFor(model => model.num4)
+                <p>@Html.TextBoxFor(model => model.num4, new { @class = "form-control" })</p>
+            </td>
+}
+        </tr>
+    </table>
+        @Html.HiddenFor(model => model.id)
+    @*<p><input class="btn btn-success" type="submit" value="Добавить" /></p>*@
+    <input class="btn btn-success tb" value="Добавить" border=@ViewBag.Ident />
+    }
+</div>
+
+<script language="JavaScript">
+    $('.g-list').on('change', function (e) {
+        $.ajax({
+            type: 'GET',
+            url: '../SIZ/AdaptiveSize',
+            data: { id: $('.g-list').val() },
+            cache: false,
+            success: function (data) {
+                $('.s-list').replaceWith(data);
+            }
+        })
+    });
+    function gettoken() {
+        var token = '@Html.AntiForgeryToken()';
+        token = $(token).val();
+        return token;
+    };
+    $('.tb').on('click', function (e) {
+        $.ajax({
+            type: 'POST',
+            url: '../SIZ/CreateOrder',
+            data: $('#newform').serialize()+"&matrix="+$('.tb').attr('border'),
+                //__RequestVerificationToken: gettoken(),
+            cache: false,
+            beforeSend: function () {
+                $('.tb').prop('disabled', true);
+            },
+            success: function (data) {
+                $('.container').replaceWith(data);
+                $('.wrapper>table').hide();
+
+                var idf = $('.tb').attr('border');
+                $('.ui-dialog .dialog').remove();
+                ext = $('[id=' + idf + ']');
+                $(ext).prev().addClass("active");
+
+                $.ajax({
+                    type: 'GET',
+                    url: '../SIZ/OrdersItems',
+                    data: { id: $(ext).attr('id') },
+                    cache: false,
+                    success: function (data) {
+                        $(ext).replaceWith(data);
+                        ext.slideDown(0);
+                    }
+                })
+
+
+                $('.wrapper>h3').click(function (e) {
+                    var findTable = $(this).next('table');
+                    var findWrapper = $(this).closest('.wrapper');
+
+                    if (findTable.is(':visible')) {
+                        findTable.slideUp(0);
+                        $(this).removeClass("active");
+                    }
+                    else {
+                        findWrapper.find('>table').slideUp();
+                        findWrapper.find('>h3').removeClass("active");
+                        $(this).addClass("active");
+                        $.ajax({
+                            type: 'GET',
+                            url: '../SIZ/OrdersItems',
+                            data: { id: $(findTable).attr('id') },
+                            cache: false,
+                            success: function (data) {
+                                $(findTable).replaceWith(data);
+                                findTable.slideDown(0);
+                            }
+                        })
+                    }
+                })
+            }
+        });
+        //$.ajax({
+        //    type: 'GET',
+        //    url: '../SIZ/OrdersMatrix',
+        //    data: { open: $('.tb').attr('border') },
+        //    cache: false,
+        //    success: function (data) {
+        //        $('.container').replaceWith(data);
+        //        $('.wrapper>table').hide();
+                
+        //        var idf = $('.tb').attr('border');
+        //        $('.ui-dialog .dialog').remove();
+        //        ext = $('[id=' + idf + ']');
+        //        $(ext).closest('h3').addClass("active");
+        //        $.ajax({
+        //            type: 'GET',
+        //            url: '../SIZ/OrdersItems',
+        //            data: { id: $(ext).attr('id') },
+        //            cache: false,
+        //            success: function (data) {
+        //                $(ext).replaceWith(data);
+        //                ext.slideDown(0);
+        //            }
+        //        })
+
+                
+        //        $('.wrapper>h3').click(function (e) {
+        //            var findTable = $(this).next('table');
+        //            var findWrapper = $(this).closest('.wrapper');
+
+        //            if (findTable.is(':visible')) {
+        //                findTable.slideUp(0);
+        //                $(this).removeClass("active");
+        //            }
+        //            else {
+        //                findWrapper.find('>table').slideUp();
+        //                findWrapper.find('>h3').removeClass("active");
+        //                $(this).addClass("active");
+        //                $.ajax({
+        //                    type: 'GET',
+        //                    url: '../SIZ/OrdersItems',
+        //                    data: { id: $(findTable).attr('id') },
+        //                    cache: false,
+        //                    success: function (data) {
+        //                        $(findTable).replaceWith(data);
+        //                        findTable.slideDown(0);
+        //                    }
+        //                })
+        //            }
+        //        })
+        //    }
+        //})
+    });
+</script>

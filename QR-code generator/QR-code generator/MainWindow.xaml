@@ -1,0 +1,130 @@
+﻿<Window x:Class="QR_code_generator.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="QR генератор" Height="350" Width="525" ResizeMode="NoResize"
+        Icon="favicon.ico">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="200*"></RowDefinition>
+            <RowDefinition Height="55*"></RowDefinition>
+            <RowDefinition Height="55*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <TabControl Name="tbctrl" Grid.Row="0">
+            <TabItem Header="Текст" Width="100">
+                <TextBox Margin="5" Text="{Binding Path=txt}" TextWrapping="Wrap" AcceptsReturn="True"/>
+            </TabItem>
+            <TabItem Header="Визитная карточка" Width="Auto">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                        <RowDefinition/>
+                    </Grid.RowDefinitions>
+                        <Grid Grid.Row="0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                            <TextBlock Grid.Column="0">Имя</TextBlock>
+                            <TextBox Text="{Binding Path=card.Fname}" Grid.Column="1"/>
+                        </Grid>
+                        <Grid Grid.Row="1">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0">Фамилия</TextBlock>
+                        <TextBox Text="{Binding Path=card.Lname}" Grid.Column="1"/>
+                        </Grid>
+                    <Grid Grid.Row="2">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition/>
+                            <ColumnDefinition/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0">Отчество</TextBlock>
+                        <TextBox Text="{Binding Path=card.Mname}" Grid.Column="1"/>
+                    </Grid>
+                    <Grid Grid.Row="3" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                            <TextBlock Grid.Column="0">Должность</TextBlock>
+                        <TextBox Text="{Binding Path=card.Title}" Grid.Column="1"/>
+                        </Grid>
+                    <Grid Grid.Row="4">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0">Рабочий телефон (+79123456789)</TextBlock>
+                        <TextBox Text="{Binding Path=card.Telw}" Grid.Column="1"/>
+                        </Grid>
+                    <Grid Grid.Row="5" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0">Мобильный телефон (+79123456789)</TextBlock>
+                        <TextBox Text="{Binding Path=card.Telm}" Grid.Column="1"/>
+                        </Grid>
+                    <Grid  Grid.Row="6" >
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition/>
+                                <ColumnDefinition/>
+                            </Grid.ColumnDefinitions>
+
+                        <TextBlock Grid.Column="0">E-mail</TextBlock>
+                        <TextBox Text="{Binding Path=card.Email}" Grid.Column="1"/>
+                        </Grid>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Сканировать">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <Button VerticalAlignment="Top" Grid.Column="0" Margin="5" Height="40" Content="Выбрать изображение" Click="Button_Click_1"></Button>
+                    <TextBox Text="{Binding Path=decodedData, UpdateSourceTrigger=PropertyChanged, Mode=TwoWay}" TextWrapping="Wrap" AcceptsReturn="True" Grid.Column="1"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <StackPanel Orientation="Vertical">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Margin="5" Grid.Column="0">Разрешение:</TextBlock>
+                    <TextBox Text="{Binding Path=dpi}" Margin="5" Grid.Column="1"></TextBox>
+                </Grid>
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition/>
+                        <ColumnDefinition/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Margin="5" Grid.Column="0">Длина стороны:</TextBlock>
+                    <TextBox Text="{Binding Path=hw}" Margin="5" Grid.Column="1"></TextBox>
+                </Grid>
+            </StackPanel>
+            <StackPanel Grid.Column="1" Orientation="Vertical">
+                <TextBlock Margin="5">Название:</TextBlock>
+                <TextBox Grid.Column="1" Margin="5" Text="{Binding Path=nm}"/>
+            </StackPanel>
+        </Grid>
+        <Button Grid.Row="2" Margin="5" Content="Сохранить" Click="Button_Click"/>
+    </Grid>
+</Window>

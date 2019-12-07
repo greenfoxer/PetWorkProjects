@@ -1,0 +1,15 @@
+﻿@using Domain.Entities;
+@model IEnumerable<t_SSS>
+@{
+    ViewBag.Title = "Список систем";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@foreach (var p in @Model)
+{
+    <div>
+        <h2 style="text-align:center">@Html.ActionLink(@p.Name, @p.link, @p.code)</h2>
+
+    </div>
+}
+

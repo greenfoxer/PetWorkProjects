@@ -1,0 +1,35 @@
+﻿@using Domain.Entities
+@model t_siz_orders
+<div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.id)
+        <div>
+            @Html.LabelFor(model => model.goods)
+            <p>@Html.DropDownListFor(model => model.goods, ViewBag.Goodss as SelectList, new { @class = "form-control g-list" })</p>
+        </div>
+        <div>
+            @Html.LabelFor(model => model.size)
+            <p>@Html.DropDownListFor(model => model.size, ViewBag.Sizes as SelectList, new { @class = "form-control s-list" })</p>
+        </div>
+        <div>
+            @Html.LabelFor(m => m.num)
+            <p>@Html.TextBoxFor(m => m.num, new { @class = "form-control" })</p>
+        </div>
+        <p><input type="submit" value="Сохранить" class="btn btn-success" /> </p>
+    }
+</div>
+<script language="JavaScript">
+    $('.g-list').on('change', function (e) {
+        $.ajax({
+            type: 'GET',
+            url: '../SIZ/AdaptiveSize',
+            data: { id: $('.g-list').val() },
+            cache: false,
+            success: function (data) {
+                $('.s-list').replaceWith(data);
+            }
+        })
+    });
+</script>

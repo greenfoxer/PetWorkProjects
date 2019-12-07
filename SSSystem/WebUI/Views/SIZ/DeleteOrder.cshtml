@@ -1,0 +1,13 @@
+﻿@model long
+<div>
+    <h3>Вы действительно хотите удалить данную заявку?</h3>
+    <div>
+
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+            <input type="submit" value="Удалить" />
+        }
+    </div>
+</div>

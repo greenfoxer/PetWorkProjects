@@ -1,0 +1,104 @@
+﻿<Window x:Class="IS_Notification.View.AddEditPerson_View"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Добавление/редактирование справочника" Height="462" Width="700.85"
+        Icon="..\bulb-lamp-torch-light-512.ico">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="353*"></ColumnDefinition>
+            <ColumnDefinition Width="340*"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <DataGrid IsReadOnly="True" ItemsSource="{Binding Path=managers}" SelectedItem="{Binding Path=person, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  AutoGenerateColumns="True" Grid.Column="0"/>
+        <StackPanel Grid.Column="1">
+            <Grid Margin="5,5,5,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="8*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Имя"></Label>
+                <TextBox IsEnabled="{Binding Path=role.Redact}" Grid.Column="1" Text="{Binding Path=person.Fname, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            </Grid>
+            <Grid Margin="5,5,5,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="8*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Отчество"></Label>
+                <TextBox IsEnabled="{Binding Path=role.Redact}" Grid.Column="1" Text="{Binding Path=person.Mname, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            </Grid>
+            <Grid Margin="5,5,5,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="8*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Фамилия"></Label>
+                <TextBox Grid.Column="1" IsEnabled="{Binding Path=role.Redact}" Text="{Binding Path=person.Sname, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            </Grid>
+            <Grid Margin="5,5,5,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="8*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Предприятие"></Label>
+                <ComboBox Grid.Column="1" 
+                          IsEnabled="{Binding Path=role.Redact}" 
+                          ItemsSource="{Binding Path=units, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                          DisplayMemberPath="Name"
+                          SelectedValuePath="Id"
+                          SelectedValue="{Binding Path=person.Department, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ></ComboBox>
+            </Grid>
+            <Grid Margin="5,5,5,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="8*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Mail"/>
+                <TextBox Grid.Column="1" IsEnabled="{Binding Path=role.Redact}" Text="{Binding Path=person.Mail, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            </Grid>
+            <Grid Margin="5,5,5,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="8*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Телефон"></Label>
+                <TextBox Grid.Column="1" IsEnabled="{Binding Path=role.Redact}" Text="{Binding Path=person.Phone, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            </Grid>
+            <Grid Margin="5,5,5,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="8*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Роль"></Label>
+                <ComboBox Grid.Column="1" IsEnabled="{Binding Path=role.Redact}"
+                          ItemsSource="{Binding Path=td, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                          DisplayMemberPath="Role_name"
+                          SelectedValuePath="Role_name"
+                          SelectedValue="{Binding Path=person.Role, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+            </Grid>
+            <Grid Margin="5,5,5,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="8*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Доменное имя"></Label>
+                <TextBox IsEnabled="{Binding Path=role.Redact}" Grid.Column="1" Text="{Binding Path=person.Domen_name, UpdateSourceTrigger=PropertyChanged}"></TextBox>
+            </Grid>
+            <Grid Margin="5,5,5,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="8*"/>
+                </Grid.ColumnDefinitions>
+                <Grid Grid.ColumnSpan="2" >
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Button IsEnabled="{Binding Path=role.Redact}" Command="{Binding Path=del_card}" Grid.Column="0" Margin="5,5,5,5" Content="Удалить"/>
+                    <Button IsEnabled="{Binding Path=role.Redact}" Command="{Binding Path=new_card}" Grid.Column="1" Margin="5,5,5,5" Content="Новая карточка"/>
+                    <Button IsEnabled="{Binding Path=role.Redact}" Command="{Binding Path=create}" Grid.Column="2" Margin="5,5,5,5" Content="Сохранить"/>
+                </Grid>
+            </Grid>
+        </StackPanel>
+    </Grid>
+</Window>

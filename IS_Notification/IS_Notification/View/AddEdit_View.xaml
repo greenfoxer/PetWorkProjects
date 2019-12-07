@@ -1,0 +1,174 @@
+﻿<Window x:Class="IS_Notification.View.AddEdit_View"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:sys="clr-namespace:System;assembly=mscorlib"
+        xmlns:local="clr-namespace:IS_Notification.Support"
+        Title="Создание/редактирование карточек" Height="570" Width="750"
+        Icon="..\bulb-lamp-torch-light-512.ico">
+    
+    <Grid Margin="0,0,0,-8">
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="408*"/>
+            <ColumnDefinition Width="259*"/>
+        </Grid.ColumnDefinitions>
+        <StackPanel Grid.Column="0">
+            <Grid Margin="5,5,5,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Вид документа"></Label>
+                <ComboBox Grid.Column="1" Name="comboBox1" 
+                          ItemsSource="{Binding Path=td, Mode=TwoWay}" 
+                          SelectedValue="{Binding Path=that_card.Card_type}"
+                          IsEnabled="{Binding Path=role.Redact}"/>
+            </Grid>
+            <Grid Margin="5,5,5,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Номер акта/протокола"></Label>
+                <TextBox Grid.Column="1" IsEnabled="{Binding Path=role.Redact}" Text="{Binding Path=that_card.N_protocol}"></TextBox>
+            </Grid>
+            <Grid Margin="5,5,5,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Дата оформления акта/протокола"></Label>
+                <DatePicker IsEnabled="{Binding Path=role.Redact}" Grid.Column="1" SelectedDate="{Binding Path=that_card.Date}"></DatePicker>
+            </Grid>
+            <Grid Margin="5,5,5,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Должностное лицо/подразделение"></Label>
+                <ComboBox Grid.Column="1"
+                          IsEnabled="{Binding Path=role.Redact}"
+                          ItemsSource="{Binding Path=units, Mode=TwoWay}" 
+                          DisplayMemberPath="Name"
+                          SelectedValuePath="Id"
+                          SelectedValue="{Binding Path=that_card.Unit}"
+                          >
+                </ComboBox>
+            </Grid>
+            <Grid Margin="5,5,5,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Ответственный за анализ/&#xD;&#xA;исполнение"></Label>
+                <ComboBox Grid.Column="1"  ItemsSource="{Binding Path=managers, Mode=TwoWay}" 
+                          IsEnabled="{Binding Path=role.Redact}"
+                          DisplayMemberPath="Name"
+                          SelectedValuePath="Id"
+                          SelectedValue="{Binding Path=that_card.Responsible_person}" Grid.ColumnSpan="2" Margin="0,8"/>
+            </Grid>
+            <Grid Margin="5,5,5,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Оповещение руководителя &#xA;подразделения"></Label>
+                <CheckBox Margin="5" IsEnabled="{Binding Path=role.Redact}" Grid.Column="1" IsChecked="{Binding Path=that_card.Is_tomanager}"></CheckBox>
+            </Grid>
+            <Grid Margin="5,5,5,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Дата 1-го срока контроля*"></Label>
+                <DatePicker Grid.Column="1" SelectedDate="{Binding Path=that_card.Date_execution}" IsEnabled="{Binding Path=role.Redact}"></DatePicker>
+            </Grid>
+            <Grid Margin="5,5,5,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Отметка о выполнении 1-го срока"></Label>
+                <CheckBox Margin="5" Grid.Column="1" IsChecked="{Binding Path=that_card.Is_executed}" IsEnabled="{Binding Path=role.Redact}"></CheckBox>
+            </Grid>
+            <Grid Margin="5,5,5,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Дата 2-го срока контроля"></Label>
+                <DatePicker Grid.Column="1" IsEnabled="{Binding Path=role.Redact}" SelectedDate="{Binding Path=that_card.Date_control}"></DatePicker>
+            </Grid>
+            <Grid Margin="5,5,5,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Отметка о выполнении 2-го срока"></Label>
+                <CheckBox Margin="5" Grid.Column="1" IsChecked="{Binding Path=that_card.Is_controlled}" IsEnabled="{Binding Path=role.Redact}"></CheckBox>
+            </Grid>
+            <Grid Margin="5,5,5,5">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="9*"/>
+                    <ColumnDefinition Width="10*"/>
+                </Grid.ColumnDefinitions>
+                <Label Grid.Column="0" Content="Информирование высшего &#xD;&#xA;руководства (при необходимости)" Grid.ColumnSpan="2" Margin="0,-4,0,4"></Label>
+                <ComboBox Grid.Column="2" Height="25" ItemsSource="{Binding Path=top_managers, Mode=TwoWay}" 
+                          DisplayMemberPath="Name"
+                          SelectedValuePath="Id"
+                          IsEnabled="{Binding Path=role.Top_manager}"
+                          SelectedValue="{Binding Path=that_card.Top_manager}"></ComboBox>
+            </Grid>
+            <Separator/>
+            <TextBlock Margin="5"><Run Text="* Для актов анализа несоответствия проставляются ориентировочные"/><LineBreak/><Run Text=" сроки проведения анализа. "/><LineBreak/><Run Text="Для протоколов КД/ПД: 1-й срок контроля - дата выполнения КД/ПД; "/><LineBreak/><Run Text="2-й срок - дата оценки результативности."/></TextBlock>
+        </StackPanel>
+        <Grid Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition  Height="Auto"></RowDefinition>
+                <RowDefinition></RowDefinition>
+                <RowDefinition Height="Auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label Grid.Row="0" Margin="5" Content="Комментарии"/>
+            <TextBox IsEnabled="{Binding Path=role.Redact}" AcceptsReturn="True" Margin="5,5,5,0" Grid.Row="1" Text="{Binding Path=that_card.Comment}" TextWrapping="Wrap" VerticalScrollBarVisibility="Auto" ></TextBox>
+            <GroupBox Header="Файлы" Margin="5" Grid.Row="2" Grid.RowSpan="2">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition />
+
+                    </Grid.RowDefinitions>
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto"/>
+                            <ColumnDefinition Width="Auto" />
+                            <ColumnDefinition Width="Auto" />
+                        </Grid.ColumnDefinitions>
+                        <Button HorizontalAlignment="Left" Margin="5" IsEnabled="{Binding Path=role.Redact}" Command="{Binding Path=add_files}" Content="+" Grid.Column="0"  Width="25" />
+                        <Button IsEnabled="{Binding Path=role.Redact}" HorizontalAlignment="Left" Margin="5" Command="{Binding Path=del_files}" Content="-" Grid.Column="1"  Width="25"  />
+                        <Button HorizontalAlignment="Left" Margin="5" Command="{Binding Path=download_file}" Content="Сохранить" Grid.Column="2"  Width="Auto"/>
+                        <Button HorizontalAlignment="Left" Margin="5" Command="{Binding Path=open_file}" Content="Открыть" Grid.Column="3"  Width="Auto"/>
+                    </Grid>
+                    <ListView SelectedItem="{Binding Path=selected_file, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  
+                      ItemsSource="{Binding Path=File_list, UpdateSourceTrigger=PropertyChanged}"  
+                      DisplayMemberPath="Sname"
+                      SelectedValuePath="Fname"
+                      Grid.Row="1">
+                        <ListView.InputBindings>
+                            <MouseBinding Gesture="LeftDoubleClick" Command="{Binding Path=download_file}"/>
+                        </ListView.InputBindings>
+                    </ListView>
+                </Grid>
+            </GroupBox>
+            <Grid Grid.Row="4">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <Button Grid.Column="0" Margin="10,0,20,20" IsEnabled="{Binding Path=role.Redact}" Command="{Binding Path=create_card}" Content="Сохранить"/>
+                <Button Grid.Column="1" Margin="10,0,20,20" IsEnabled="{Binding Path=role.Redact}" Command="{Binding Path=quit}" Content="Отменить"/>
+            </Grid>
+        </Grid>
+    </Grid>
+</Window>

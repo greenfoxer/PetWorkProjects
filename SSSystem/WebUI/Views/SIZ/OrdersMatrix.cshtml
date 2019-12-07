@@ -1,0 +1,129 @@
+﻿@using Domain.Entities
+@model IEnumerable<t_siz_orders_mas>
+
+@{
+    if (ViewBag.OpenOrder == 0) {ViewBag.Title = "Заявки СИЗ";
+    Layout = "~/Views/SIZ/_SIZ.cshtml";}
+}
+                      @{if (ViewBag.OpenOrder == 0) { 
+                      
+<nav id="btns" style="border-bottom:groove;  z-index:2">
+    <ul>
+        @if (ViewBag.Role != "User.css")
+        {
+            <li>
+                @Html.ActionLink("Все лоты", "Orders", "SIZ", new { },
+                    new { })
+            </li>
+            <li>
+                @Html.ActionLink("Перечень СиЗ", "Print", "SIZ", new { },
+                                       new { id = "editsiz" })
+            </li>
+
+            <li>
+                @Html.ActionLink("Размеры", "SizeList", "SIZ", new { },
+                                                new { id = "sizeedit" })
+            </li>
+            <li>
+                @Html.ActionLink("Параметры", "EditParam", "SIZ", new { },
+                                       new { id = "editparam", @class = "viewDialog", data_dialog_title = "Изменение параметров" })
+            </li>
+            <li>
+                @Html.ActionLink("Пользователи", "UserList", "SIZ", new { },
+                                       new { id = "edituser" })
+            </li>
+        }
+        <li>
+            @Html.ActionLink("Руководство пользователя", "HowTo", "SIZ", new { },
+                    new { })
+        </li>
+    </ul>
+</nav>
+                      }}
+<div class="container">
+    <div class="wrapper">
+                @foreach (var order in Model)
+        {
+                    <h3 @(order.accepted == null || order.accepted == 0 ? "class=standard" : order.accepted == 1 ? "class=sended" : order.accepted == 2 ? "class=returned" : "class=accepted")>
+                        <b>@order.t_siz_department.name</b> на @order.quarter квартал @order.year года
+                    </h3>
+            <table class="table table-striped table-condensed table-bordered" id="@order.id">
+                <tr><td>content</td></tr>
+            </table>
+        }
+    </div>
+</div>
+<style>
+    /* Style the buttons that are used to open and close the accordion panel */
+h3.accepted {
+    background-color: #c8e6c9;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+}
+
+h3.sended {
+    background-color: #fff8e1;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+}
+
+h3.returned {
+    background-color: #ffebee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+}
+
+h3.standard {
+    background-color: #eee;
+    color: #444;
+    cursor: pointer;
+    padding: 18px;
+    width: 100%;
+    text-align: left;
+    border: none;
+    outline: none;
+    transition: 0.4s;
+}
+/* Add a background color to the button if it is clicked on (add the .active class with JS), and when you move the mouse over it (hover) */
+h3.active.standard, h3.standard:hover {
+    background-color: #ddd;
+}
+h3.active.accepted, h3.accepted:hover {
+    background-color: #a5d6a7;
+}
+h3.active.sended, h3.sended:hover {
+    background-color: #ffecb3;
+}
+h3.active.returned, h3.returned:hover {
+    background-color: #ffcdd2;
+}
+h3:after {
+    content: '\02795'; /* Unicode character for "plus" sign (+) */
+    font-size: 24px;
+    color: #777;
+    float: right;
+    margin-left: 5px;
+}
+
+h3.active:after {
+    content: "\2796"; /* Unicode character for "minus" sign (-) */
+}
+</style>

@@ -1,0 +1,73 @@
+﻿<Window x:Class="BarcodeOrder.View.MainView"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:local="clr-namespace:BarcodeOrder.ViewModel"
+        xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
+        Title="Штрихкоды для художественных конвертов" Height="700" Width="450"
+        Icon="..\Resources\barcode.png" Closing="Window_Closing">
+    <Window.DataContext>
+        <local:MainViewModel/>
+    </Window.DataContext>
+    <i:Interaction.Triggers>
+        <i:EventTrigger EventName="Closing">
+            <i:InvokeCommandAction Command="{Binding CheckClose}"/>
+        </i:EventTrigger>
+    </i:Interaction.Triggers>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Menu>
+            <MenuItem Command="{Binding Path=SaveAll}" Header="Сохранить все"></MenuItem>
+            <Separator Width="10" Visibility="Visible" />
+            <MenuItem Command="{Binding Path=DeleteElement}" Header="Удалить элемент"></MenuItem>
+            <Separator Width="10" Visibility="Visible"/>
+            <MenuItem Command="{Binding Path=Switch}" Header="Только актуальные" IsCheckable="True" IsChecked="{Binding IsActual}">
+                <MenuItem.Style>
+                    <Style>
+                        
+                    </Style>
+                </MenuItem.Style>
+            </MenuItem>
+            <Separator Width="10" Visibility="Visible" />
+            <MenuItem Command="{Binding Path=DeleteElement}" Header="?" Click="MenuItem_Click"></MenuItem>
+        </Menu>
+        <DataGrid Grid.Row="1" ItemsSource="{Binding Path=lo}" AutoGenerateColumns="False" SelectedItem="{Binding Path=SelectedItem, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" KeyUp="DataGrid_KeyUp" MouseLeave="DataGrid_MouseLeave" SelectionMode="Single">
+            <DataGrid.InputBindings>
+                <KeyBinding Key="Enter" Command="Save" />
+            </DataGrid.InputBindings>
+            <DataGrid.RowStyle>
+                <Style TargetType="{x:Type DataGridRow}">
+                    <Style.Triggers>
+                        <DataTrigger Binding = "{Binding IsActive}" Value="True">
+                            <Setter Property="Background" >
+                                <Setter.Value>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="White" Offset="0"/>
+                                        <GradientStop Color="#FFE6FFE6" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                        <DataTrigger Binding = "{Binding IsActive}" Value="False">
+                            <Setter Property="Background" >
+                                <Setter.Value>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="White" Offset="0"/>
+                                        <GradientStop Color="#FFF7E0E0" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </DataGrid.RowStyle>
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Заказ" Binding="{Binding Path=Code}" Width="150"/>
+                <DataGridTextColumn Header="Штрихкод" Binding="{Binding Path=Barcode}" Width="150"/>
+                <DataGridCheckBoxColumn Header="В работе" Binding="{Binding Path=IsActive}" Width="*"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</Window>

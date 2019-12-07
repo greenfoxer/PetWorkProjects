@@ -1,0 +1,14 @@
+﻿@using Domain.Entities
+@model t_siz_goods_size
+
+<div>
+    @using (Html.BeginForm())
+    { 
+        @Html.AntiForgeryToken()
+        <div>
+            @Html.LabelFor(m=>m.size)
+            <p>@Html.EditorFor(m=>m.size)</p>
+        </div>
+        <p><input type="submit" value="Добавить" /></p>
+    }
+</div>

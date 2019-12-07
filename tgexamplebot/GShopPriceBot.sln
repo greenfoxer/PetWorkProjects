@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 16
+VisualStudioVersion = 16.0.28803.202
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GShopPriceBot", "GShopPriceBot\GShopPriceBot.csproj", "{14240EA8-22B6-4A8F-AEB9-B241B51B1ABB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ParserTests", "ParserTests\ParserTests.csproj", "{06DEF7E6-80AD-46F7-99CF-2575BFFFEE5D}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{14240EA8-22B6-4A8F-AEB9-B241B51B1ABB}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{14240EA8-22B6-4A8F-AEB9-B241B51B1ABB}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{14240EA8-22B6-4A8F-AEB9-B241B51B1ABB}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{14240EA8-22B6-4A8F-AEB9-B241B51B1ABB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06DEF7E6-80AD-46F7-99CF-2575BFFFEE5D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06DEF7E6-80AD-46F7-99CF-2575BFFFEE5D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06DEF7E6-80AD-46F7-99CF-2575BFFFEE5D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06DEF7E6-80AD-46F7-99CF-2575BFFFEE5D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {D65D9C37-B46E-4706-A7D9-D511E9A83DA7}
+	EndGlobalSection
+EndGlobal

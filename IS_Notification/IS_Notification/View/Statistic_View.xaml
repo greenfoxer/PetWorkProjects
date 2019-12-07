@@ -1,0 +1,34 @@
+﻿<Window x:Class="IS_Notification.View.Statistic_View"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Statistics" Height="300" Width="300" WindowState="Maximized">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <GroupBox Header="Cards" Grid.Row="0">
+            <Grid>
+                <DataGrid HorizontalScrollBarVisibility="Visible" VerticalScrollBarVisibility="Visible"  CanUserAddRows="False" ItemsSource="{Binding Path=del_cards}" SelectedItem="{Binding Path=selected_card}" AutoGenerateColumns="True" Width="auto"/>
+                <Button Command="{Binding Path=restore_card}" VerticalAlignment="Bottom" Content="Restore"/>
+            </Grid>
+        </GroupBox>
+        <GroupBox Header="Persons" Grid.Row="1">
+            <StackPanel Orientation="Vertical">
+                <DataGrid  VerticalScrollBarVisibility="Visible"  CanUserAddRows="False" ItemsSource="{Binding Path=del_persons}" SelectedItem="{Binding Path=selected_person}" AutoGenerateColumns="True" Width="auto"/>
+                <Button Command="{Binding Path=restore_person}" VerticalAlignment="Bottom" Content="Restore"/>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="Agents" Grid.Row="2">
+            <StackPanel Orientation="Vertical">
+                <DataGrid CanUserAddRows="False" ItemsSource="{Binding Path=del_agents}" SelectedItem="{Binding Path=selected_agent}" AutoGenerateColumns="True" Width="auto"/>
+                <Button Command="{Binding Path=restore_agent}" VerticalAlignment="Bottom" Height="25" Content="Restore"/>
+            </StackPanel>
+        </GroupBox>
+        <GroupBox Header="Statisstic" Grid.Row="3">
+            <DataGrid CanUserAddRows="False" ItemsSource="{Binding Path=statistic}"/>
+        </GroupBox>
+    </Grid>
+</Window>

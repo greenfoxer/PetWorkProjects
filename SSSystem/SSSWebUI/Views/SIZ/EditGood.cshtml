@@ -1,0 +1,30 @@
+﻿@model Domain.Entities.t_siz_goods
+
+<div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.id)
+        <div>
+            @Html.LabelFor(model => model.name)
+            <p>@Html.TextAreaFor(model => model.name,5,55, new { @class = "form-control"})</p>
+        </div>
+        <div>
+            @Html.LabelFor(model => model.manufacturer)
+            <p>@Html.DropDownListFor(model => model.manufacturer, ViewBag.Mans as SelectList, new { @class = "form-control" })</p>
+        </div>
+    <div>
+        @Html.LabelFor(model => model.code)
+        <p>@Html.TextBoxFor(model => model.code, new { @class = "form-control" })</p>
+    </div>
+    <div>
+        @Html.LabelFor(model => model.standard)
+        <p>@Html.TextBoxFor(model => model.standard, new { @class = "form-control" })</p>
+    </div>
+    <div>
+        @Html.LabelFor(model => model.unit)
+        <p>@Html.TextBoxFor(model => model.unit, new { @class = "form-control" })</p>
+    </div>
+        <p><input class="btn btn-success" type="submit" value="Сохранить" /></p>
+    }
+</div>

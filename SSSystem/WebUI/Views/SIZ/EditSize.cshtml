@@ -1,0 +1,16 @@
+﻿@model Domain.Entities.t_siz_goods_size
+
+<div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.id)
+        <div>
+            @Html.LabelFor(model => model.size)
+            <p>@Html.TextBoxFor(model => model.size, new { @class = "form-control" })</p>
+            <p>@Html.TextBoxFor(model => model.alternative, new { @class = "form-control" })</p>
+            <p>@Html.DropDownListFor(model => model.type, ViewBag.Types as SelectList, "-- Выберите тип --", new { @class = "form-control" })</p>
+        </div>
+        <p><input class="btn btn-success" type="submit" value="Сохранить" /></p>
+    }
+</div>

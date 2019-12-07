@@ -1,0 +1,141 @@
+﻿@using Domain.Entities
+@model IEnumerable<t_siz_orders>
+
+<table class="table table-condensed table-bordered" id="@ViewBag.Ident">
+    <thead>
+        <tr>
+            <th class="text-center">Наименование СиЗ</th>
+            <th class="text-center">Артикул</th>
+            <th class="text-center">ГОСТ</th>
+            <th class="text-center">Размер</th>
+            <th class="text-center">Подразделение</th>
+            <th class="text-center">Количество</th>
+        </tr>
+    </thead>
+    @foreach (var item in @Model)
+    {
+        <tr>
+            <td class="text-left">
+                @{if ((ViewBag.OrderStatus != null && ViewBag.OrderStatus != 0 && ViewBag.OrderStatus != 2) && ViewBag.Role == "User.css")
+                  {
+                      @item.t_siz_goods.name
+                  }
+                  else
+                  {
+                      @Html.ActionLink(@item.t_siz_goods.name, "EditOrder", "SIZ", new { id = item.id, identificator = ViewBag.Ident },
+                                                      new { @class = "viewDialog", data_dialog_title = "Редактирование СиЗ" })
+                  }
+                }
+                    </td>
+            <td class="text-center">@item.t_siz_goods.code</td>
+            <td class="text-center">@item.t_siz_goods.standard</td>
+            <td class="text-center">@item.t_siz_goods_size.size</td>
+            <td class="text-left">@(@item.t_siz_department != null ? @item.t_siz_department.name : "")</td>
+            <td class="text-right">@item.num</td>
+            @{if (!(ViewBag.OrderStatus != null && ViewBag.OrderStatus != 0 && ViewBag.OrderStatus != 2 && ViewBag.Role == "User.css"))
+              {
+            <td class="text-center">
+                @using (Html.BeginForm("DeleteOrder", "SIZ"))
+                {
+                    @Html.Hidden("id", @item.id)
+                    @Html.ActionLink("Удалить", "DeleteOrder", "SIZ", new { id = @item.id },
+                                        new { @class = "viewDialog btn btn-default", data_dialog_title = "Удаление заявки на СиЗ" })
+                }
+            </td>
+            }
+    }
+        </tr>
+    }
+    @{if(ViewBag.OrderStatus==null)
+      { 
+          <text>
+    <tr style="border:none">
+        <td style="border:none">
+            @Html.ActionLink("Добавить лот к заявке", "CreateOrder", "SIZ", new { id = @ViewBag.Ident },
+                                           new { @class = "viewDialog", data_dialog_title = "Добавление новой заявки на СиЗ" })
+        </td>
+        <td style="border:none">
+            @Html.ActionLink("Отправить на согласование", "SendOrderAccept", "SIZ", new { id = @ViewBag.Ident },
+                                           new { })
+        </td>
+    </tr>
+    </text>
+    }
+    }
+    @{if (ViewBag.OrderStatus == 0)
+    {
+        <text>
+            <tr style="border:none">
+                <td style="border:none">
+                    @Html.ActionLink("Добавить лот к заявке", "CreateOrder", "SIZ", new { id = @ViewBag.Ident },
+                                           new { @class = "viewDialog", data_dialog_title = "Добавление новой заявки на СиЗ" })
+                </td>
+                <td style="border:none">
+                    @Html.ActionLink("Отправить на согласование", "SendOrderAccept", "SIZ", new { id = @ViewBag.Ident },
+                                           new { })
+                </td>
+            </tr>
+        </text>
+    }
+    }
+    @{if (ViewBag.OrderStatus == 1)
+    {
+          
+        if (ViewBag.Role != "User.css")
+        { 
+            <text>
+            <tr style="border:none">
+                <td style="border:none">
+                    @Html.ActionLink("Согласовать", "AcceptOrder", "SIZ", new { id = @ViewBag.Ident },
+                                           new {})
+                </td>
+                <td style="border:none">
+                    @Html.ActionLink("Отправить на доработку", "RejectOrder", "SIZ", new { id = @ViewBag.Ident },
+                                           new { })
+                </td>
+            </tr>
+    </text>
+    }
+    }
+    }
+    @{if (ViewBag.OrderStatus == 2)
+    {
+        <text>
+    <tr style="border:none">
+        <td style="border:none">
+            @Html.ActionLink("Новая заявка на СиЗ", "CreateOrder", "SIZ", new { id = @ViewBag.Ident },
+                                           new { @class = "viewDialog", data_dialog_title = "Добавление новой заявки на СиЗ" })
+        </td>
+        <td style="border:none">
+            @Html.ActionLink("Отправить на согласование", "SendOrderAccept", "SIZ", new { id = @ViewBag.Ident },
+                                           new { })
+        </td>
+    </tr>
+        </text>
+    }
+    }
+</table>
+
+<script>
+    $(".viewDialog").on("click", function (e) {
+        e.preventDefault();
+
+        $("<div></div>")
+            .addClass("dialog")
+            .appendTo("body")
+            .dialog({
+                title: $(this).attr("data-dialog-title"),
+                close: function () { $(this).remove() },
+                maxWidth: 600,
+                maxHeight: 550,
+                width: 600,
+                height: 530,
+                modal: true
+            })
+            .load(this.href);
+    });
+    $(".close").on("click", function (e) {
+        e.preventDefault();
+        $(this).closest(".dialog").dialog("close");
+    });
+</script>

@@ -1,0 +1,9 @@
+﻿@model long
+<div>
+    @using (Html.BeginForm())
+    {
+        <h6>Вы действительно хотите удалить данное СиЗ?</h6>
+        @Html.AntiForgeryToken()
+        <p><input type="submit" value="Удалить" /></p>
+    }
+</div>

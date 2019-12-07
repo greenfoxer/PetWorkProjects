@@ -1,0 +1,24 @@
+﻿@using Domain.Entities
+@model t_siz_users
+
+<div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.id)
+        <div>
+            @Html.LabelFor(model => model.name)
+            <p>@Html.TextAreaFor(model => model.name, 5, 55, new { @class = "form-control" })</p>
+        </div>
+        <div>
+            @Html.LabelFor(model => model.department)
+            <p>@Html.DropDownListFor(model => model.department, ViewBag.Dept as SelectList, new { @class = "form-control" })</p>
+        </div>
+    <div>
+        @Html.LabelFor(model => model.role)
+        <p>@Html.DropDownListFor(model => model.role, ViewBag.Roles as SelectList, new { @class = "form-control" })</p>
+    </div>
+        <p><input class="btn btn-success" type="submit" value="Сохранить" /></p>
+    }
+
+</div>

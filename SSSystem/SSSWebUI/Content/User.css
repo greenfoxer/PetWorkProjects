@@ -1,0 +1,19 @@
+﻿#editparam {
+    display: none;
+}
+#sizeedit {
+    display: none;
+}
+#editsiz{
+    display: none;
+}
+#edituser {
+    display: none;
+}
+#edituser {
+    display: normal;
+    visibility: visible;
+}
+#viewman {
+    display: none;
+}

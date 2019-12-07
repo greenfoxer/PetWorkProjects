@@ -1,0 +1,57 @@
+﻿@using Domain.Entities
+@model IEnumerable<t_siz_goods>
+
+@{
+    ViewBag.Title = "Перечень СиЗ";
+    Layout = "~/Views/SIZ/_SIZ.cshtml";
+}
+    <nav id="btns"  style="border-bottom:groove;  z-index:2">
+        <ul>
+            <li>
+            @Html.ActionLink("Новое СИЗ", "CreateGood", "SIZ", new { },
+            new { @class = "viewDialog", data_dialog_title = "Добавление СиЗ" })
+            </li>
+            <li>
+                @Html.ActionLink("Заявки", "OrdersMatrix", "SIZ", new { },
+                    new { })
+            </li>
+            <li>
+                @Html.ActionLink("Производители", "ListMan", "SIZ", new { },
+                     new { @class = "viewDialog", data_dialog_title = "Список производителей" })
+            </li>
+         </ul>
+    </nav>
+    <div class="container">
+    <table id="tb" class="table table-striped table-condensed table-bordered">
+        <thead>
+            <tr>
+                <th class="text-left">@Html.ActionLink("Наименование СИЗ", "Print", "SIZ", new { mode=0 },
+                                       new { id = "editsiz" })</th>
+                <th class="text-right">@Html.ActionLink("Артикул", "Print", "SIZ", new { mode = 1 },
+                                       new { id = "editsiz" })</th>
+                <th class="text-center">@Html.ActionLink("Производитель", "Print", "SIZ", new { mode = 2 },
+                                       new { id = "editsiz" })</th>
+                <th class="text-center">Размеры</th>
+                <th class="text-center">Подразделения</th>
+                <th class="text-center">Действия</th>
+            </tr>
+        </thead>
+        @foreach (var p in @Model)
+        {
+            <tr>
+                <td>
+                    @Html.ActionLink(@p.name, "EditGood", "SIZ", new { id = p.id },
+                    new { @class = "viewDialog", data_dialog_title = "Редактирование СИЗ" })
+                </td>
+                <td class="text-right">@p.code</td>
+                <td>@p.t_siz_manufacturer.name</td>
+                <td><a href="@Url.Action("AddSizeTable", "SIZ", new { id = p.id })" class="viewDialog" data-dialog-title="Размерная сетка"><span class=" glyphicon glyphicon-th"></span></a></td>
+                <td><a href="@Url.Action("AddDeptTable", "SIZ", new { id = p.id })" class="viewDialog" data-dialog-title="Подразделения"><span class="glyphicon glyphicon-th-large"></span></a></td>
+                <td>
+                    <a href="@Url.Action("EditGood", "SIZ", new { id = p.id })" class="viewDialog" data-dialog-title="Редактирование СиЗ"><span class="glyphicon glyphicon-pencil"></span></a>
+                    <a href="@Url.Action("DeleteGood", "SIZ", new { id = p.id })" class="viewDialog" data-dialog-title="Удаление СиЗ"><span class=" glyphicon glyphicon-remove" style="color:red"></span></a>
+                </td>
+            </tr>
+        }
+    </table>
+</div>

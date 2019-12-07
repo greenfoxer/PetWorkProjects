@@ -1,0 +1,96 @@
+﻿<Window x:Class="clientwpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:bc="http://www.quickzip.org/BaseControls"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        
+        Icon="sml.ico"
+        Title="CLIENT" Height="400" Width="600" >
+    <Window.Resources>
+        <DataTemplate x:Key="TxtBlck">
+            <Grid>
+                <TextBlock Text="{Binding Path=txt}"/>
+            </Grid>
+        </DataTemplate>
+        <Style x:Key="myHeaderStyle" TargetType="{x:Type GridViewColumnHeader}">
+            <Setter Property="Visibility" Value="Collapsed" />
+        </Style>
+    </Window.Resources>
+   
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="250*"></RowDefinition>
+            <RowDefinition Height="70"></RowDefinition>
+            <RowDefinition Height="25"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="420*" />
+            <ColumnDefinition Width="auto" />
+        </Grid.ColumnDefinitions>
+        <!--<TextBlock TextWrapping="Wrap" ScrollViewer.VerticalScrollBarVisibility="Auto" Text="{Binding Path=txt}" Margin="5"></TextBlock>-->
+        <Grid Grid.Column="0"  Grid.Row="0" >
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"/>
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+            <StackPanel Grid.Row="0" Orientation="Horizontal">
+                <TextBlock Text="Current room: " Foreground="#FF0FC60F" FontSize="16"/>
+                <TextBlock Text="{Binding Path=room.user.UserName}" Foreground="Red" FontSize="16"/>
+            </StackPanel>
+            <!--<TextBlock Height="240"  Text="{Binding Path=txt}" ScrollViewer.VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"/>-->
+            <Border Grid.Row="1" BorderBrush="LightBlue" BorderThickness="0.5">
+               
+                <ScrollViewer Grid.Row="1" >
+                    <bc:HtmlTextBlock FontSize="14" Grid.Row="1" x:Name="htmlTextBlock" ScrollViewer.VerticalScrollBarVisibility="Visible" TextWrapping="Wrap" 
+                                     Html="{Binding Path=txt}"/>
+                </ScrollViewer>
+            </Border>
+            <!--<TextBox Grid.Row="1" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"  IsReadOnly="True"  Text="{Binding Path=txt}" ScrollViewer.VerticalScrollBarVisibility="Auto" TextWrapping="Wrap"/>-->
+        </Grid>
+        <ListView ItemsSource="{Binding Path=users}" 
+                 DisplayMemberPath="user.UserName"
+                 SelectedItem="{Binding Path=room,  Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                 Grid.Column="1" Grid.Row="0" Margin="3">
+            <ListView.View>
+                <GridView ColumnHeaderContainerStyle="{StaticResource myHeaderStyle}">
+                    <GridViewColumn DisplayMemberBinding="{Binding nm, UpdateSourceTrigger=PropertyChanged}"/>
+                    <GridViewColumn DisplayMemberBinding="{Binding user, UpdateSourceTrigger=PropertyChanged}"/>
+                </GridView>
+            </ListView.View>
+            <ListView.ItemContainerStyle>
+                <Style TargetType="ListViewItem">
+                    <Style.Triggers>
+                        <DataTrigger Binding="{Binding  Path=fl}" Value="True">
+                            <Setter Property="Background" >
+                                <Setter.Value>
+                                    <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
+                                        <GradientStop Color="White" Offset="0"/>
+                                        <GradientStop Color="Red" Offset="1"/>
+                                    </LinearGradientBrush>
+                                </Setter.Value>
+                            </Setter>
+                        </DataTrigger>
+                    </Style.Triggers>
+                </Style>
+            </ListView.ItemContainerStyle>
+
+        </ListView>
+        <TextBox TextWrapping="Wrap" Text="{Binding Path=str, UpdateSourceTrigger=PropertyChanged}" ScrollViewer.VerticalScrollBarVisibility="Auto" Margin="3" Grid.Row="1" Grid.Column="0" >
+            <TextBox.InputBindings>
+                <KeyBinding Command="{Binding Path=editPerson}" Key="Enter"/>
+            </TextBox.InputBindings>
+        </TextBox>
+        <StackPanel Grid.Row="1" Grid.Column="1">
+            <Button Command="{Binding Path=editPerson}" Margin="5" Content="SEND"></Button>
+            <Button Command="{Binding Path=addfile}" Width="20" Margin="5" Content="+"></Button>
+        </StackPanel>
+        
+        <StatusBar  Grid.Row="2" Grid.ColumnSpan="2" Background="#FFF8FFF8" BorderBrush="LightBlue" BorderThickness="0.5">
+                <StatusBarItem   Grid.Column="1" >
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock Text="User: "></TextBlock>
+                        <TextBlock Text="{Binding Path=me.UserName}"/>
+                    </StackPanel>
+                </StatusBarItem>
+        </StatusBar>
+    </Grid>
+</Window>

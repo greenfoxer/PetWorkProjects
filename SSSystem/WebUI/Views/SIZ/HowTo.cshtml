@@ -1,0 +1,43 @@
+﻿@{
+    ViewBag.Title = "Руководство пользователя";
+    Layout = "~/Views/SIZ/_SIZ.cshtml";
+}
+<nav id="btns" style="border-bottom:groove;  z-index:2">
+    <ul>
+        <li>
+            @Html.ActionLink("Заявки на СИЗ", "OrdersMatrix", "SIZ", new { },
+                    new { })
+        </li>
+    </ul>
+</nav>
+<div class="container">
+    <h2 style="text-align:center">Руководство пользователя</h2>
+    <h3>Рабочая область</h3>
+    <text style="font-size:large">
+        Рабочая область программы для составления заявок на сиз имеет следующий вид:
+        <p>
+            <img src="~/Images/1.png" style="border:groove; border-color:green" />
+        </p>на рисунке серым обозначена заявка на сиз на 1,2 квартал 2017 года.
+        для того, чтобы перейти к редактированию заявки, необходимо открыть ее, нажав на серую область, или на значок + <p>
+            <img src="~/Images/2.png" style="border:groove; border-color:green" />
+        </p>
+    </text>
+    <h3>Управление заявками</h3>
+    <text style="font-size:large">
+        Для того, чтобы отправить заявку на согласование, необходимо нажать на кнопку "Отправить на согласование", размещенную внизу заявки.<p>
+            <img src="~/Images/3.png" style="border:groove; border-color:green" />
+        </p> Заявку можно отправлять как пустой, так и с добавленными лотами. После отправдения заявки на согласование, цвет изменится с серого на Желтый, и ответственному лицу будет отправлено письмо с просьбой о согласовании заявки. <p>
+            <img src="~/Images/4.png" style="border:groove; border-color:green" />
+        </p> Если заявка будет отклонена на доработку, то цвет с желтого изменится на красный.<p>
+            <img src="~/Images/5.png" style="border:groove; border-color:green" />
+        </p> Если заявка будет утверждена, то цвет заявки станет зеленым.
+    </text>
+    <h3>Создание лота</h3>
+    <text style="font-size:large">
+        В заявку можно добавить неограниченное количество лотов, создавая их с помощью кнопки "Добавить лот к заявке".<p>
+            <img src="~/Images/7.png" style="border:groove; border-color:green" />
+        </p> После нажатия кнопки откроется окно, в котором необходимо сформировать лот, указав тип СИЗ, выбрать его размер, а также указать количество по кварталам, после чего нажать кнопку "Добавить".<p>
+            <img src="~/Images/8.png" style="border:groove; border-color:green" />
+        </p>
+    </text>
+</div>

@@ -1,0 +1,76 @@
+﻿@using Domain.Entities
+@model IEnumerable<t_siz_orders>
+@{
+    ViewBag.Title = "Перечень Заказов СиЗ";
+    Layout = "~/Views/SIZ/_SIZ.cshtml";
+}
+<nav id="btns" style="border-bottom:groove;  z-index:2">
+    <ul>
+        <li>
+            @Html.ActionLink("Новая заявка на СиЗ", "CreateOrder", "SIZ", new { },
+                                       new { @class = "viewDialog", data_dialog_title = "Добавление новой заявки на СиЗ" })
+        </li>
+        <li>
+            @Html.ActionLink("Matrix", "OrdersMatrix", "SIZ", new { },
+                                       new { id = "ordrmtrx" })
+        </li>
+        @if(ViewBag.Role!="User.css")
+        { 
+         <li>
+            @Html.ActionLink("Перечень СиЗ", "Print", "SIZ", new { },
+                                       new { id = "editsiz" })
+        </li>
+
+         <li>
+            @Html.ActionLink("Размеры", "SizeList", "SIZ", new { },
+                                                new { id = "sizeedit" })
+        </li>    
+            <li>
+            @Html.ActionLink("Параметры", "EditParam", "SIZ", new { },
+                                       new { id = "editparam", @class = "viewDialog", data_dialog_title = "Изменение параметров" })
+        </li>   
+            <li>
+            @Html.ActionLink("Пользователи", "UserList", "SIZ", new { },
+                                       new { id = "edituser" })
+        </li>
+        }
+    </ul>
+</nav>
+
+<div class="container">
+    <table id="tb" class="table table-striped table-condensed table-bordered">
+        <thead>
+            <tr>
+                <th class="text-center">Наименование СиЗ</th>
+                <th class="text-center">Артикул</th>
+                <th class="text-center">ГОСТ</th>
+                <th class="text-center">Размер</th>
+                <th class="text-center">Подразделение</th>
+                <th class="text-center">Количество</th>
+            </tr>
+        </thead>
+        @foreach (var item in @Model)
+        {
+            <tr>
+                <td class="text-left">
+                    @Html.ActionLink(@item.t_siz_goods.name, "EditOrder", "SIZ", new { id = item.id },
+                                                new { @class = "viewDialog", data_dialog_title = "Редактирование СиЗ" })
+                </td>
+                <td class="text-center">@item.t_siz_goods.code</td>
+                <td class="text-center">@item.t_siz_goods.standard</td>
+                <td class="text-center">@item.t_siz_goods_size.size</td>
+                <td class="text-left">@(@item.t_siz_department != null ? @item.t_siz_department.name : "")</td>
+                <td class="text-right">@item.num</td>
+                <td class="text-center">
+                    @using (Html.BeginForm("DeleteOrder", "SIZ"))
+                    {
+                        @Html.Hidden("id", @item.id)
+                        @Html.ActionLink("Удалить", "DeleteOrder", "SIZ", new { id = @item.id },
+                                        new { @class = "viewDialog btn btn-default", data_dialog_title = "Удаление заявки на СиЗ" })
+                    }
+                </td>
+            </tr>
+            @*<tr><td>@p.t_siz_goods.name</td><td>@p.t_siz_goods_size.size</td></tr>*@
+        }
+    </table>
+</div>

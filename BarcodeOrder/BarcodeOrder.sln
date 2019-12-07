@@ -1,0 +1,40 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 2013
+VisualStudioVersion = 12.0.40629.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BarcodeOrder", "BarcodeOrder\BarcodeOrder.csproj", "{796D2A91-B68B-4413-B8FD-0E316B762DEF}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OrderBarcodeData", "OrderBarcodeData\OrderBarcodeData.csproj", "{0EAF42CB-054E-4993-B59D-25E2CF462B4D}"
+EndProject
+Global
+	GlobalSection(TeamFoundationVersionControl) = preSolution
+		SccNumberOfProjects = 3
+		SccEnterpriseProvider = {4CA58AB2-18FA-4F8D-95D4-32DDF27D184C}
+		SccTeamFoundationServer = http://Server02:8080/tfs/mtg01
+		SccLocalPath0 = .
+		SccProjectUniqueName1 = BarcodeOrder\\BarcodeOrder.csproj
+		SccProjectName1 = BarcodeOrder
+		SccLocalPath1 = BarcodeOrder
+		SccProjectUniqueName2 = OrderBarcodeData\\OrderBarcodeData.csproj
+		SccProjectName2 = OrderBarcodeData
+		SccLocalPath2 = OrderBarcodeData
+	EndGlobalSection
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{796D2A91-B68B-4413-B8FD-0E316B762DEF}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{796D2A91-B68B-4413-B8FD-0E316B762DEF}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{796D2A91-B68B-4413-B8FD-0E316B762DEF}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{796D2A91-B68B-4413-B8FD-0E316B762DEF}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0EAF42CB-054E-4993-B59D-25E2CF462B4D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0EAF42CB-054E-4993-B59D-25E2CF462B4D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0EAF42CB-054E-4993-B59D-25E2CF462B4D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0EAF42CB-054E-4993-B59D-25E2CF462B4D}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal

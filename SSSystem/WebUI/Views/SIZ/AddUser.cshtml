@@ -1,0 +1,12 @@
+﻿
+<div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <div>
+            @Html.Label("Введите электронную почту пользователя")
+            <p>@Html.TextBox("user","Введите адрес", new { @class = "form-control" })</p>
+        </div>
+        <p><input class="btn btn-success" type="submit" value="Сохранить" /></p>
+    }
+</div>

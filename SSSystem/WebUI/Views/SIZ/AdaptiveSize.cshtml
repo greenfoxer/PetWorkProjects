@@ -1,0 +1,9 @@
+﻿@using Domain.Entities;
+@model IEnumerable<t_siz_goods_size>
+<select class="form-control s-list" data-val="true" data-val-number="Значением поля Размер должно быть число." data-val-required="Требуется поле Размер." id="size" name="size">
+    <option value="">-- Выберите размер --</option>
+    @foreach (var item in Model)
+    {
+        <option value="@item.id">@item.size</option>
+    }
+</select>

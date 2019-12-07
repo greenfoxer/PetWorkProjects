@@ -1,0 +1,1 @@
+dotnet publish .\GShopPriceBot -c Release -o ..\publish

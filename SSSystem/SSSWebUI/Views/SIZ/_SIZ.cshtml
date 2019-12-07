@@ -1,0 +1,118 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link href='@Url.Content("~/Content/themes/base/jquery-ui.css")' rel="stylesheet" type="text/css" />
+    <meta name="viewport" content="width=device-width" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link href="~/Content/bootstrap.css" rel="stylesheet" />
+    <link href="~/Content/bootstrap-theme.css" rel="stylesheet" />
+    <link href="~/Content/ErrorStyles.css" rel="stylesheet" />
+    @ViewBag.POLZ
+    @*@ViewBag.Role
+    <link id="pagestyle" rel="stylesheet" type="text/css" href=@Url.Content("~/Content/"+@ViewBag.Role)>*@
+</head>
+<body>
+    <h1 style="position:center;background: white; font-family:'Comic Sans MS',sans-serif; font-weight:600;  z-index:2; padding-left:50px" class="text-left">Заявки СИЗ</h1>
+    @RenderBody()
+</body>
+</html>
+<style>
+    .fixed {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+
+    .shadow {
+        -webkit-box-shadow: 0px 7px 17px -2px rgba(117,117,117,1);
+        -moz-box-shadow: 0px 7px 17px -2px rgba(117,117,117,1);
+        box-shadow: 0px 7px 17px -2px rgba(117,117,117,1);
+    }
+
+    .show-role{
+        background-color:blue;
+        top:500px;
+    }
+
+    nav {
+        width: 100%;
+        background-color: white;
+    }
+
+        nav li {
+            display: inline-block;
+        }
+
+        nav a {
+            display: block;
+            text-decoration: none;
+            font-size: large;
+            padding: 10px;
+            color: rgba(1,1,1,1);
+        }
+
+            nav a:hover {
+                background-color: rgb(204, 204, 204);
+                text-decoration: none;
+                color: black;
+            }
+</style>
+<script src='@Url.Content("~/Scripts/jquery-3.1.1.min.js")' type="text/javascript"></script>
+<script src='@Url.Content("~/Scripts/jquery-ui-1.12.1.min.js")' type="text/javascript"></script>
+<script>
+    $(document).ready(function () {
+
+        $.ajaxSetup({ cache: false });
+
+        $(".viewDialog").on("click", function (e) {
+            e.preventDefault();
+
+            $("<div></div>")
+                .addClass("dialog")
+                .appendTo("body")
+                .dialog({
+                    title: $(this).attr("data-dialog-title"),
+                    close: function () { $(this).remove() },
+                    maxWidth: 600,
+                    maxHeight: 550,
+                    width: 600,
+                    height: 530,
+                    modal: true
+                })
+                .load(this.href);
+        });
+        $(".close").on("click", function (e) {
+            e.preventDefault();
+            $(this).closest(".dialog").dialog("close");
+        });
+
+
+        //GLUE MENU//
+        var navPos, winPos, navHeight;
+        function refreshVar() {
+            navPos = $('#btns').offset().top;
+            navHeight = $('#btns').outerHeight(true);
+        };
+        refreshVar();
+        $(window).resize(refreshVar);
+
+        $('<div class="clone-nav"></div>').insertBefore('#btns').css('height', navHeight).hide();
+
+        $(window).scroll(function () {
+            winPos = $(window).scrollTop();
+            if (winPos >= navPos){
+                $('#btns').addClass('fixed shadow');
+                $('.clone-nav').show();
+            }
+            else {
+                $('#btns').removeClass('fixed shadow');
+                $('.clone-nav').hide();
+            }
+        });
+        /////////////
+    });
+</script>

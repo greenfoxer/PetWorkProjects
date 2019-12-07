@@ -1,0 +1,18 @@
+﻿@model Domain.Entities.t_siz_parameters
+
+<div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.HiddenFor(model => model.id)
+        <div>
+            @Html.LabelFor(model => model.year)
+            <p>@Html.TextBoxFor(model => model.year, new { @class = "form-control" })</p>
+        </div>
+        <div>
+            @Html.LabelFor(model => model.quarter)
+            <p>@Html.DropDownListFor(model => model.quarter, ViewBag.Quart as SelectList, new { @class = "form-control" })</p>
+        </div>
+        <p><input class="btn btn-success" type="submit" value="Сохранить" /></p>
+    }
+</div>

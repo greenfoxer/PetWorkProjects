@@ -1,0 +1,43 @@
+﻿@using Domain.Entities
+@model IEnumerable<t_siz_users>
+@{
+    ViewBag.Title = "UserList";
+    Layout = "~/Views/SIZ/_SIZ.cshtml";
+}
+<nav id="btns" style="border-bottom:groove;  z-index:2">
+    <ul>
+        <li>
+
+            @Html.ActionLink("Новый пользователь", "AddUser", "SIZ", new { },
+                                        new { @class = "viewDialog", data_dialog_title = "Новый пользователь" })
+        </li>
+        <li>
+            @Html.ActionLink("Заявки на СИЗ", "Orders", "SIZ", new { },
+                    new { })
+        </li>
+    </ul>
+</nav>
+<div class="container">
+    @*<input type="text" id="new_usr" />
+        <button id="add_usr">Добавить</button><span style="visibility:hidden">Пользователь не найден!</span>*@
+    <table class="table table-striped table-condensed table-bordered">
+        <thead>
+            <tr>
+                <th>Все пользователи</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in @Model)
+            {
+                <tr>
+                    <td class="text-left">
+                        @Html.ActionLink(@item.name, "EditUser", "SIZ", new { id = item.id },
+                            new { @class = "viewDialog", data_dialog_title = "Информация о пользователе" })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+

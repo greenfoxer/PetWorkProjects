@@ -1,0 +1,65 @@
+﻿@using Domain.Entities
+@model t_siz_orders
+<div>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        <input type="hidden" value="@ViewBag.Ident" name="identificator" />
+        @Html.HiddenFor(model => model.id)
+        <div>
+            @Html.LabelFor(model => model.goods)
+            <p>@Html.DropDownListFor(model => model.goods, ViewBag.Goodss as SelectList, new { @class = "form-control g-list" })</p>
+        </div>
+        <div>
+            @Html.LabelFor(model => model.size)
+            <p>@Html.DropDownListFor(model => model.size, ViewBag.Sizes as SelectList, new { @class = "form-control s-list" })</p>
+        </div>
+    <table>
+
+        <tr>
+           @if(ViewBag.Quarters[0]==1)
+            {
+            <td>
+                @Html.LabelFor(model => model.num1)
+                <p>@Html.TextBoxFor(model => model.num1, new { @class = "form-control" })</p>
+            </td>
+            }
+        @if(ViewBag.Quarters[1]==1)
+            {
+            <td>
+                @Html.LabelFor(model => model.num2)
+                <p>@Html.TextBoxFor(model => model.num2, new { @class = "form-control" })</p>
+            </td>
+                }
+        @if(ViewBag.Quarters[2]==1)
+            {
+            <td>
+                @Html.LabelFor(model => model.num3)
+                <p>@Html.TextBoxFor(model => model.num3, new { @class = "form-control" })</p>
+            </td>
+    }
+        @if(ViewBag.Quarters[3]==1)
+            {
+            <td>
+                @Html.LabelFor(model => model.num4)
+                <p>@Html.TextBoxFor(model => model.num4, new { @class = "form-control" })</p>
+            </td>
+        }
+        </tr>
+    </table>
+        <p><input type="submit" value="Сохранить" class="btn btn-success" /> </p>
+    }
+</div>
+<script language="JavaScript">
+    $('.g-list').on('change', function (e) {
+        $.ajax({
+            type: 'GET',
+            url: '../SIZ/AdaptiveSize',
+            data: { id: $('.g-list').val() },
+            cache: false,
+            success: function (data) {
+                $('.s-list').replaceWith(data);
+            }
+        })
+    });
+</script>
